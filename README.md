@@ -98,3 +98,18 @@ The dataset consists of 4 tables containing information regarding carbon emissio
 | Mercedes-Benz S-Class (S 500)                                                                                                      | Automobiles & Components           | 85000.00   | 
 | Mercedes-Benz SL (SL 350)                                                                                                          | Automobiles & Components           | 72000.00   | 
 
+# Top 1 industry with the highest contribution to carbon emissions
+    SELECT 
+      industry_groups.industry_group AS industry_group
+      , ROUND(AVG(product_emissions.carbon_footprint_pcf),2) AS avg_pcf
+    FROM product_emissions
+    LEFT JOIN industry_groups
+    ON product_emissions.industry_group_id = industry_groups.id
+    GROUP BY industry_group
+    ORDER BY avg_pcf DESC
+    LIMIT 1;
+
+| industry_group                     | avg_pcf   | 
+| ---------------------------------: | --------: | 
+| Electrical Equipment and Machinery | 891050.73 | 
+
