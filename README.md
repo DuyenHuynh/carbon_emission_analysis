@@ -113,3 +113,26 @@ The dataset consists of 4 tables containing information regarding carbon emissio
 | ---------------------------------: | --------: | 
 | Electrical Equipment and Machinery | 891050.73 | 
 
+# Top 10 companies contributing the most to carbon emissions
+    SELECT 
+      companies.company_name AS company
+      , ROUND(SUM(product_emissions.carbon_footprint_pcf),2) AS total_pcf
+    FROM product_emissions
+    LEFT JOIN companies
+    ON product_emissions.company_id = companies.id
+    GROUP BY company
+    ORDER BY total_pcf DESC
+    LIMIT 10;
+
+| company                                 | total_pcf  | 
+| --------------------------------------: | ---------: | 
+| "Gamesa Corporación Tecnológica, S.A."  | 9778464.00 | 
+| Daimler AG                              | 1594300.00 | 
+| Volkswagen AG                           | 655960.00  | 
+| "Mitsubishi Gas Chemical Company, Inc." | 212016.00  | 
+| "Hino Motors, Ltd."                     | 191687.00  | 
+| Arcelor Mittal                          | 167007.00  | 
+| Weg S/A                                 | 160655.00  | 
+| General Motors Company                  | 137007.00  | 
+| "Lexmark International, Inc."           | 132012.00  | 
+| "Daikin Industries, Ltd."               | 105600.00  | 
