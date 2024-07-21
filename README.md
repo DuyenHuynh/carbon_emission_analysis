@@ -136,3 +136,45 @@ The dataset consists of 4 tables containing information regarding carbon emissio
 | General Motors Company                  | 137007.00  | 
 | "Lexmark International, Inc."           | 132012.00  | 
 | "Daikin Industries, Ltd."               | 105600.00  | 
+
+# Top 10 countries contributing the most to carbon emissions
+    SELECT 
+      countries.country_name AS country
+      , ROUND(SUM(product_emissions.carbon_footprint_pcf),2) AS total_pcf
+    FROM product_emissions
+    LEFT JOIN countries
+    ON product_emissions.country_id = countries.id
+    GROUP BY country
+    ORDER BY total_pcf DESC
+    LIMIT 10;
+
+| country     | total_pcf  | 
+| ----------: | ---------: | 
+| Spain       | 9786130.00 | 
+| Germany     | 2251225.00 | 
+| Japan       | 653237.00  | 
+| USA         | 518381.00  | 
+| South Korea | 186965.00  | 
+| Brazil      | 169337.00  | 
+| Luxembourg  | 167007.00  | 
+| Netherlands | 70417.00   | 
+| Taiwan      | 62875.00   | 
+| India       | 24574.00   | 
+
+# Trend of carbon footprints (PCFs) over the years
+    SELECT 
+      year
+      , ROUND(SUM(carbon_footprint_pcf),2) AS total_pcf
+    FROM product_emissions
+    GROUP BY year;
+
+| year | total_pcf   | 
+| ---: | ----------: | 
+| 2013 | 503857.00   | 
+| 2014 | 624226.00   | 
+| 2015 | 10840415.00 | 
+| 2016 | 1640182.00  | 
+| 2017 | 340271.00   | 
+
+
+
