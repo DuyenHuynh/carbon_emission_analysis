@@ -73,4 +73,28 @@ The dataset consists of 4 tables containing information regarding carbon emissio
 | Audi A6                                                                                                                            | 111282    | 
 | Average of all GM vehicles produced and used in the 10 year life-cycle.                                                            | 100621    | 
 
+# Top 10 Products contributing the most to carbon emissions by Industry
+    SELECT 
+      product_emissions.product_name AS product_name
+      , industry_groups.industry_group AS industry_group
+      , ROUND(AVG(product_emissions.carbon_footprint_pcf),2) AS avg_pcf
+    FROM product_emissions
+    LEFT JOIN industry_groups
+    ON product_emissions.industry_group_id = industry_groups.id
+    GROUP BY product_name
+    ORDER BY avg_pcf DESC
+    LIMIT 10;
+
+| product_name                                                                                                                       | industry_group                     | avg_pcf    | 
+| ---------------------------------------------------------------------------------------------------------------------------------: | ---------------------------------: | ---------: | 
+| Wind Turbine G128 5 Megawats                                                                                                       | Electrical Equipment and Machinery | 3718044.00 | 
+| Wind Turbine G132 5 Megawats                                                                                                       | Electrical Equipment and Machinery | 3276187.00 | 
+| Wind Turbine G114 2 Megawats                                                                                                       | Electrical Equipment and Machinery | 1532608.00 | 
+| Wind Turbine G90 2 Megawats                                                                                                        | Electrical Equipment and Machinery | 1251625.00 | 
+| Land Cruiser Prado. FJ Cruiser. Dyna trucks. Toyoace.IMV def unit.                                                                 | Automobiles & Components           | 191687.00  | 
+| Retaining wall structure with a main wall (sheet pile): 136 tonnes of steel sheet piles and 4 tonnes of tierods per 100 meter wall | Materials                          | 167000.00  | 
+| TCDE                                                                                                                               | Materials                          | 99075.00   | 
+| Mercedes-Benz GLE (GLE 500 4MATIC)                                                                                                 | Automobiles & Components           | 91000.00   | 
+| Mercedes-Benz S-Class (S 500)                                                                                                      | Automobiles & Components           | 85000.00   | 
+| Mercedes-Benz SL (SL 350)                                                                                                          | Automobiles & Components           | 72000.00   | 
 
